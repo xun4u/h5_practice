@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        #ca {
+            height: 100vh;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="ca"></div>
+</body>
+
+<script>
+    ca.onclick = (e) => {
+        // console.log(e)
+        let div = document.createElement('div')
+        div.style.position = 'absolute'
+        div.style.left = e.clientX + 'px'
+        div.style.top = e.clientY + 'px'
+        div.style.border = '1px solid black'
+        div.style.height = '6px'
+        div.style.width = '6px'
+        div.style.marginLeft = '-3px'
+        div.style.marginTop = '-3px'
+        div.style.borderRadius = '50%'
+        div.style.backgroundColor = 'black'
+        ca.appendChild(div)
+
+    }
+</script>
+
+</html>
