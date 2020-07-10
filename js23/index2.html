@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        #ca {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="ca" height="100" width="100"></canvas>
+</body>
+<script>
+    let canvas = document.getElementById('ca')
+    canvas.width = document.documentElement.clientWidth
+    canvas.height = document.documentElement.clientHeight
+
+    let ctx = canvas.getContext("2d")
+    ctx.fillStyle = "black"
+    ctx.strokeStyle = 'black'
+    ctx.lineWidth = 8
+    ctx.lineCap = 'round' //两点交接处圆滑
+
+    let painting = false
+    let last
+
+    //判断手机和PC
+    var isTouchDevice = 'ontouchstart' in document.documentElement;
+
+    if (isTouchDevice) {
+        canvas.ontouchstart = (e) => {
+            let x = e.touches[0].clientX
+            let y = e.touches[0].clientY
+            last = [x, y]
+        }
+
+        canvas.ontouchmove = (e) => {
+            let x = e.touches[0].clientX
+            let y = e.touches[0].clientY
+            drawLine(last[0], last[1], x, y)
+            last = [x, y]
+        }
+    } else {
+        canvas.onmousedown = (e) => {
+            painting = true
+            last = [e.clientX, e.clientY]
+        }
+
+
+        canvas.onmousemove = (e) => {
+            if (painting === true) {
+                // ctx.beginPath();
+                // ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI)
+                // ctx.stroke()
+                // ctx.fill()
+                drawLine(last[0], last[1], e.clientX, e.clientY)
+                last = [e.clientX, e.clientY]
+            }
+        }
+
+        canvas.onmouseup = () => {
+            painting = false
+        }
+    }
+
+    function drawLine(x1, y1, x2, y2) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1)
+        ctx.lineTo(x2, y2)
+        ctx.stroke()
+    }
+</script>
+
+</html>
